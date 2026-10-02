@@ -1,0 +1,219 @@
+/* Hero -------------------------------------------------------------------- */
+.hero {
+  background: linear-gradient(160deg, var(--color-brand-soft) 0%, #ffffff 65%);
+  border-bottom: 1px solid var(--color-line);
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
+.hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  max-width: 16ch;
+}
+
+.hero-text {
+  margin-top: 1.1rem;
+  max-width: 52ch;
+  color: var(--color-ink-soft);
+  font-size: 1.05rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.75rem;
+}
+
+.hero-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 1.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.hero-points li::before {
+  content: '✓ ';
+  color: var(--color-success);
+}
+
+.hero-art {
+  position: relative;
+  min-height: 20rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 55%, #d946ef 100%);
+  box-shadow: var(--shadow);
+}
+
+.hero-emoji {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  font-size: 2.1rem;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.hero-emoji-1 { top: 12%; left: 10%; transform: rotate(-8deg); }
+.hero-emoji-2 { top: 18%; right: 12%; transform: rotate(7deg); }
+.hero-emoji-3 { bottom: 24%; left: 16%; transform: rotate(6deg); }
+.hero-emoji-4 { bottom: 14%; right: 14%; transform: rotate(-6deg); }
+
+.hero-chip {
+  position: absolute;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+.hero-chip-1 { top: 46%; left: 6%; }
+.hero-chip-2 { top: 58%; right: 6%; }
+
+/* Categories -------------------------------------------------------------- */
+.category-grid {
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  height: 100%;
+  padding: 1.4rem 1.3rem;
+  background: #ffffff;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.category-card:hover {
+  border-color: #c7d2fe;
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+}
+
+.category-emoji {
+  font-size: 2rem;
+  margin-bottom: 0.4rem;
+}
+
+.category-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.category-desc {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+}
+
+.category-cta {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-brand);
+}
+
+/* Promo banner ------------------------------------------------------------- */
+.promo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(120deg, #4f46e5 0%, #7c3aed 60%, #db2777 100%);
+  color: #ffffff;
+}
+
+.promo-copy {
+  max-width: 46ch;
+}
+
+.promo-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 0.6rem;
+}
+
+.promo h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+}
+
+.promo p {
+  margin: 0.85rem 0 1.5rem;
+  opacity: 0.92;
+}
+
+.promo-art {
+  display: flex;
+  gap: 1rem;
+  font-size: clamp(3rem, 8vw, 5rem);
+}
+
+/* Call to action ------------------------------------------------------------ */
+.cta {
+  background: var(--color-bg-soft);
+  border-top: 1px solid var(--color-line);
+}
+
+.cta-inner {
+  text-align: center;
+  max-width: 44rem;
+}
+
+.cta-inner h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+}
+
+.cta-inner > p {
+  margin-top: 0.85rem;
+  color: var(--color-muted);
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-art {
+    min-height: 16rem;
+    order: -1;
+  }
+
+  .promo-art {
+    display: none;
+  }
+}

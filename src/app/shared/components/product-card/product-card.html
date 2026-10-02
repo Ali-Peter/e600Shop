@@ -1,0 +1,54 @@
+<article class="product-card">
+  <a
+    class="product-media"
+    [routerLink]="['/products', product().id]"
+    [attr.aria-label]="'View details for ' + product().name"
+  >
+    <span class="product-media-bg" [style.background]="product().gradient" aria-hidden="true"></span>
+    @if (showImage()) {
+      <img
+        class="product-image"
+        [src]="product().imageUrl"
+        alt=""
+        loading="lazy"
+        (error)="onImageError()"
+      />
+    } @else {
+      <span class="product-emoji" aria-hidden="true">{{ product().emoji }}</span>
+    }
+    @if (product().badge) {
+      <span class="product-badge">{{ product().badge }}</span>
+    }
+    @if (product().originalPrice) {
+      <span class="product-sale">Sale</span>
+    }
+  </a>
+
+  <div class="product-body">
+    <p class="product-category">{{ categoryName() || product().category }}</p>
+    <h3 class="product-name">
+      <a [routerLink]="['/products', product().id]">{{ product().name }}</a>
+    </h3>
+    @if (product().rating) {
+      <p class="product-rating">
+        <span aria-hidden="true">★</span>
+        <span>{{ product().rating }}</span>
+        @if (product().reviews) {
+          <span class="product-reviews">({{ product().reviews }} reviews)</span>
+        }
+        <span class="visually-hidden">Rated {{ product().rating }} out of 5</span>
+      </p>
+    }
+    <div class="product-footer">
+      <p class="product-price">
+        <span class="price-current">{{ product().price | currency:'NGN':'symbol-narrow' }}</span>
+        @if (product().originalPrice) {
+          <s class="price-was">{{ product().originalPrice | currency:'NGN':'symbol-narrow' }}</s>
+        }
+      </p>
+      <button type="button" class="btn btn-primary btn-sm" (click)="addToCart()">
+        {{ added() ? 'Added ✓' : 'Add to cart' }}
+      </button>
+    </div>
+  </div>
+</article>

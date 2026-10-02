@@ -1,0 +1,94 @@
+<div class="page container">
+  <header class="page-head">
+    <h1>Your cart</h1>
+    @if (!cart.isEmpty()) {
+      <p>{{ cart.count() }} items ready for checkout.</p>
+    }
+  </header>
+
+  @if (cart.isEmpty()) {
+    <section class="empty-cart" aria-labelledby="empty-title">
+      <span class="empty-icon" aria-hidden="true">🛒</span>
+      <h2 id="empty-title">Your cart is empty</h2>
+      <p>Looks like you haven't added anything yet. Explore the catalogue and find something you love.</p>
+      <a routerLink="/products" class="btn btn-primary btn-lg">Start shopping</a>
+    </section>
+  } @else {
+    <div class="cart-layout">
+      <section class="cart-items" aria-labelledby="cart-items-title">
+        <h2 id="cart-items-title" class="visually-hidden">Items in your cart</h2>
+        <ul class="cart-list">
+          @for (item of cart.items(); track item.product.id) {
+            <li>
+              <article class="cart-line">
+                <div class="cart-thumb" [style.background]="item.product.gradient" aria-hidden="true">
+                  <span>{{ item.product.emoji }}</span>
+                </div>
+
+                <div class="cart-line-main">
+                  <p class="cart-category">{{ categoryName(item.product.category) }}</p>
+                  <h3>
+                    <a [routerLink]="['/products', item.product.id]">{{ item.product.name }}</a>
+                  </h3>
+                  <p class="cart-unit">{{ item.product.price | currency }} each</p>
+                </div>
+
+                <div class="cart-line-qty">
+                  <app-qty-stepper
+                    [value]="item.quantity"
+                    [label]="'Quantity for ' + item.product.name"
+                    (valueChange)="cart.updateQuantity(item.product.id, $event)"
+                  />
+                  <button
+                    type="button"
+                    class="remove-btn"
+                    (click)="cart.remove(item.product.id)"
+                    [attr.aria-label]="'Remove ' + item.product.name + ' from cart'"
+                  >
+                    Remove
+                  </button>
+                </div>
+
+                <p class="cart-line-total">
+                  {{ item.product.price * item.quantity | currency }}
+                </p>
+              </article>
+            </li>
+          }
+        </ul>
+
+        <a routerLink="/products" class="continue-link">← Continue shopping</a>
+      </section>
+
+      <aside class="cart-summary" aria-labelledby="summary-title">
+        <h2 id="summary-title">Order summary</h2>
+        <dl class="summary-lines">
+          <div>
+            <dt>Subtotal</dt>
+            <dd>{{ cart.subtotal() | currency }}</dd>
+          </div>
+          <div>
+            <dt>Shipping</dt>
+            <dd>{{ cart.shipping() === 0 ? 'Free' : cart.shipping() | currency }}</dd>
+          </div>
+          <div class="summary-total">
+            <dt>Total</dt>
+            <dd>{{ cart.total() | currency }}</dd>
+          </div>
+        </dl>
+
+        @if (remainingForFreeShipping() > 0) {
+          <p class="ship-note">
+            Add {{ remainingForFreeShipping() | currency }} more to unlock free shipping.
+          </p>
+        } @else {
+          <p class="ship-note free">You have unlocked free shipping.</p>
+        }
+
+        <a routerLink="/checkout" class="btn btn-primary btn-lg btn-block">Proceed to checkout</a>
+        <a routerLink="/products" class="btn btn-outline btn-block">Continue shopping</a>
+        <p class="secure-note">Secure checkout · 30-day returns</p>
+      </aside>
+    </div>
+  }
+</div>

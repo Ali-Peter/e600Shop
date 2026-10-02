@@ -1,0 +1,78 @@
+.page {
+  padding-block: clamp(2.5rem, 7vw, 4.5rem);
+  display: grid;
+  place-items: start center;
+}
+
+.login-card {
+  width: min(100%, 26rem);
+  background: #ffffff;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: clamp(1.75rem, 5vw, 2.5rem);
+  text-align: center;
+}
+
+.login-mark {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0 auto 1.1rem;
+  border-radius: 0.9rem;
+  background: linear-gradient(135deg, var(--color-brand), #7c3aed);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.login-card h1 {
+  font-size: clamp(1.4rem, 4vw, 1.85rem);
+}
+
+.login-text {
+  margin-top: 0.85rem;
+  color: var(--color-ink-soft);
+}
+
+.login-email {
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.login-identity {
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  margin-top: 1rem;
+}
+
+.login-google-btn {
+  margin-top: 1.5rem;
+}
+
+.login-note {
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+.login-actions {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.login-error {
+  margin-top: 1.25rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: var(--color-danger);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+}

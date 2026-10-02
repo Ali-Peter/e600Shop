@@ -1,0 +1,56 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" routerLink="/">
+        <span class="brand-mark" aria-hidden="true">e6</span>
+        <span class="brand-name">e600<span class="brand-name-accent">Shop</span></span>
+      </a>
+      <p>
+        Quality products at fair prices, delivered to your door. Free shipping on every order over
+        {{ freeShippingThreshold | currency }}.
+      </p>
+    </div>
+
+    <nav aria-label="Shop">
+      <h2 class="footer-heading">Shop</h2>
+      <ul class="footer-links">
+        <li><a routerLink="/products">All products</a></li>
+        <li>
+          <a routerLink="/products" [queryParams]="{ category: 'electronics' }">Electronics</a>
+        </li>
+        <li><a routerLink="/products" [queryParams]="{ category: 'fashion' }">Fashion</a></li>
+        <li><a routerLink="/products" [queryParams]="{ category: 'home' }">Home &amp; living</a></li>
+      </ul>
+    </nav>
+
+    <nav aria-label="Orders">
+      <h2 class="footer-heading">Orders</h2>
+      <ul class="footer-links">
+        <li><a routerLink="/cart">Your cart</a></li>
+        <li><a routerLink="/checkout">Checkout</a></li>
+        <li><a routerLink="/">Home</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="footer-heading">Support</h2>
+      <ul class="footer-links footer-contact">
+        <li><a href="mailto:support@e600shop.example">support@e600shop.example</a></li>
+        <li>Mon–Sat, 9am–6pm</li>
+        <li>30-day hassle-free returns</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>© {{ year }} e600Shop. All rights reserved.</p>
+      <ul class="payment-list" aria-label="Accepted payment methods">
+        <li>Visa</li>
+        <li>Mastercard</li>
+        <li>Verve</li>
+        <li>PayPal</li>
+      </ul>
+    </div>
+  </div>
+</footer>

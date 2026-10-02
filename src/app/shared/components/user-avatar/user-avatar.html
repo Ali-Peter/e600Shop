@@ -1,0 +1,7 @@
+<span class="avatar" [class.avatar-lg]="size() === 'lg'">
+  @if (imageUrl(); as url) {
+    <img class="avatar-img" [src]="url" alt="" (error)="onImageError(url)" />
+  } @else {
+    <span class="avatar-initial" aria-hidden="true">{{ initial() }}</span>
+  }
+</span>

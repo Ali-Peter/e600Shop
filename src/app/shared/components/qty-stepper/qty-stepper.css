@@ -1,0 +1,38 @@
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.qty-btn {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 0;
+  background: transparent;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+}
+
+.qty-btn:hover:not(:disabled) {
+  background: var(--color-brand-soft);
+  color: var(--color-brand-strong);
+}
+
+.qty-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.qty-value {
+  min-width: 2.25rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-style: normal;
+}

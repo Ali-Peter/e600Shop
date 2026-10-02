@@ -1,0 +1,141 @@
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.product-card:hover {
+  border-color: #c7d2fe;
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+}
+
+.product-media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.product-media-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.product-emoji {
+  position: relative;
+  font-size: clamp(3rem, 6vw, 4rem);
+  filter: drop-shadow(0 8px 12px rgba(15, 23, 42, 0.18));
+  transition: transform 0.25s ease;
+}
+
+.product-card:hover .product-emoji {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.product-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-badge,
+.product-sale {
+  position: absolute;
+  top: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}
+
+.product-badge {
+  inset-inline-start: 0.75rem;
+  background: var(--color-ink);
+  color: #ffffff;
+}
+
+.product-sale {
+  inset-inline-end: 0.75rem;
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.product-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.1rem 1.15rem;
+  flex: 1;
+}
+
+.product-category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.product-name {
+  font-size: 1.02rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.product-name a:hover {
+  color: var(--color-brand);
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+}
+
+.product-rating > span[aria-hidden='true'] {
+  color: #f59e0b;
+}
+
+.product-reviews {
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+.product-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.price-current {
+  font-size: 1.12rem;
+  font-weight: 700;
+}
+
+.price-was {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}

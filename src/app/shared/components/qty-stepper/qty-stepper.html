@@ -1,0 +1,21 @@
+<div class="qty-stepper" role="group" [attr.aria-label]="label()">
+  <button
+    type="button"
+    class="qty-btn"
+    (click)="decrease()"
+    [disabled]="value() <= min()"
+    [attr.aria-label]="'Decrease ' + label()"
+  >
+    −
+  </button>
+  <output class="qty-value" aria-live="polite">{{ value() }}</output>
+  <button
+    type="button"
+    class="qty-btn"
+    (click)="increase()"
+    [disabled]="value() >= max()"
+    [attr.aria-label]="'Increase ' + label()"
+  >
+    +
+  </button>
+</div>

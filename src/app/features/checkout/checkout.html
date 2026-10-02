@@ -1,0 +1,250 @@
+<div class="page container">
+  @if (placedOrder(); as order) {
+    <section class="confirmation" aria-labelledby="confirm-title">
+      <span class="confirm-icon" aria-hidden="true">✅</span>
+      <p class="eyebrow">Order confirmed</p>
+      <h1 id="confirm-title">Thank you, your order is on its way</h1>
+      <p class="confirm-text">
+        @if (order.emailSent) {
+          We have sent a confirmation to <strong>{{ order.email }}</strong>.
+        } @else {
+          We could not e-mail a confirmation just now, so please keep
+          <strong>{{ order.email }}</strong> as your reference.
+        }
+        Your order
+        <strong>{{ order.number }}</strong> ({{ order.itemCount }} items, {{ order.total | currency
+        }}) should arrive by <strong>{{ order.eta }}</strong>.
+      </p>
+      <div class="confirm-actions">
+        <a routerLink="/products" class="btn btn-primary btn-lg">Continue shopping</a>
+        <a routerLink="/" class="btn btn-outline btn-lg">Back to home</a>
+      </div>
+    </section>
+  } @else if (cart.isEmpty()) {
+    <section class="confirmation" aria-labelledby="empty-title">
+      <span class="confirm-icon" aria-hidden="true">🛒</span>
+      <h1 id="empty-title">Nothing to check out yet</h1>
+      <p class="confirm-text">Your cart is empty. Add a few products and come back here.</p>
+      <div class="confirm-actions">
+        <a routerLink="/products" class="btn btn-primary btn-lg">Start shopping</a>
+      </div>
+    </section>
+  } @else {
+    <header class="page-head">
+      <p class="eyebrow">Secure checkout</p>
+      <h1>Checkout</h1>
+      <p class="page-sub">Enter your details below — no account required.</p>
+    </header>
+
+    <div class="checkout-layout">
+      <form class="checkout-form" [formGroup]="form" (ngSubmit)="placeOrder()" novalidate>
+        <fieldset>
+          <legend>Customer information</legend>
+
+          <div class="field" [class.field-invalid]="invalid('fullName')">
+            <label for="fullName">Full name</label>
+            <input
+              id="fullName"
+              type="text"
+              formControlName="fullName"
+              autocomplete="name"
+              placeholder="Ada Obi"
+              [attr.aria-invalid]="invalid('fullName')"
+              [attr.aria-describedby]="invalid('fullName') ? 'fullName-error' : null"
+            />
+            @if (invalid('fullName')) {
+              <p class="field-error" id="fullName-error">Please enter your full name.</p>
+            }
+          </div>
+
+          <div class="field-row">
+            <div class="field" [class.field-invalid]="invalid('email')">
+              <label for="email">Email address</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+                [attr.aria-invalid]="invalid('email')"
+                [attr.aria-describedby]="invalid('email') ? 'email-error' : null"
+              />
+              @if (invalid('email')) {
+                <p class="field-error" id="email-error">Please enter a valid email address.</p>
+              }
+            </div>
+
+            <div class="field" [class.field-invalid]="invalid('phone')">
+              <label for="phone">Phone number</label>
+              <input
+                id="phone"
+                type="tel"
+                formControlName="phone"
+                autocomplete="tel"
+                placeholder="+234 801 234 5678"
+                [attr.aria-invalid]="invalid('phone')"
+                [attr.aria-describedby]="invalid('phone') ? 'phone-error' : null"
+              />
+              @if (invalid('phone')) {
+                <p class="field-error" id="phone-error">Please enter a valid phone number.</p>
+              }
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Delivery address</legend>
+
+          <div class="field" [class.field-invalid]="invalid('address')">
+            <label for="address">Street address</label>
+            <input
+              id="address"
+              type="text"
+              formControlName="address"
+              autocomplete="street-address"
+              placeholder="12 Admiralty Way, Lekki Phase 1"
+              [attr.aria-invalid]="invalid('address')"
+              [attr.aria-describedby]="invalid('address') ? 'address-error' : null"
+            />
+            @if (invalid('address')) {
+              <p class="field-error" id="address-error">Please enter your delivery address.</p>
+            }
+          </div>
+
+          <div class="field-row">
+            <div class="field" [class.field-invalid]="invalid('city')">
+              <label for="city">City</label>
+              <input
+                id="city"
+                type="text"
+                formControlName="city"
+                autocomplete="address-level2"
+                placeholder="Lagos"
+                [attr.aria-invalid]="invalid('city')"
+                [attr.aria-describedby]="invalid('city') ? 'city-error' : null"
+              />
+              @if (invalid('city')) {
+                <p class="field-error" id="city-error">Please enter your city.</p>
+              }
+            </div>
+
+            <div class="field" [class.field-invalid]="invalid('postalCode')">
+              <label for="postalCode">Postal / ZIP code</label>
+              <input
+                id="postalCode"
+                type="text"
+                formControlName="postalCode"
+                autocomplete="postal-code"
+                placeholder="106104"
+                [attr.aria-invalid]="invalid('postalCode')"
+                [attr.aria-describedby]="invalid('postalCode') ? 'postalCode-error' : null"
+              />
+              @if (invalid('postalCode')) {
+                <p class="field-error" id="postalCode-error">Please enter your postal code.</p>
+              }
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="country">Country</label>
+            <select id="country" formControlName="country" autocomplete="country-name">
+              <option value="Nigeria">Nigeria</option>
+              <option value="Ghana">Ghana</option>
+              <option value="Kenya">Kenya</option>
+              <option value="South Africa">South Africa</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="United States">United States</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="notes">Delivery notes (optional)</label>
+            <textarea
+              id="notes"
+              formControlName="notes"
+              rows="2"
+              placeholder="Landmark, gate code, best delivery time…"
+            ></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Payment method</legend>
+          <div class="radio-list">
+            <label class="radio-option">
+              <input type="radio" formControlName="paymentMethod" value="card" />
+              <span>Card (Visa, Mastercard)</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" formControlName="paymentMethod" value="transfer" />
+              <span>Bank transfer</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" formControlName="paymentMethod" value="delivery" />
+              <span>Pay on delivery</span>
+            </label>
+          </div>
+          <p class="payment-note">This is a demo storefront — no real payment will be taken.</p>
+        </fieldset>
+
+        @if (submitted() && form.invalid) {
+          <p class="form-summary-error" role="alert">
+            Please fix the highlighted fields before placing your order.
+          </p>
+        }
+
+        @if (orders.errorMessage(); as apiError) {
+          <p class="form-summary-error" role="alert">{{ apiError }}</p>
+        }
+
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg btn-block"
+          [disabled]="orders.submitting()"
+        >
+          @if (orders.submitting()) {
+            Placing your order…
+          } @else {
+            Place order — {{ cart.total() | currency }}
+          }
+        </button>
+        <a routerLink="/cart" class="back-link" [class.back-link-disabled]="orders.submitting()"
+          >← Back to cart</a
+        >
+      </form>
+
+      <aside class="order-summary" aria-labelledby="order-summary-title">
+        <h2 id="order-summary-title">Order summary</h2>
+        <ul class="summary-items">
+          @for (item of cart.items(); track item.product.id) {
+            <li>
+              <span class="summary-emoji" aria-hidden="true">{{ item.product.emoji }}</span>
+              <span class="summary-name">
+                {{ item.product.name }}
+                <small>Qty {{ item.quantity }}</small>
+              </span>
+              <span class="summary-price">{{ item.product.price * item.quantity | currency }}</span>
+            </li>
+          }
+        </ul>
+        <dl class="summary-lines">
+          <div>
+            <dt>Subtotal</dt>
+            <dd>{{ cart.subtotal() | currency }}</dd>
+          </div>
+          <div>
+            <dt>Shipping</dt>
+            <dd>{{ cart.shipping() === 0 ? 'Free' : cart.shipping() | currency }}</dd>
+          </div>
+          <div class="summary-total">
+            <dt>Total</dt>
+            <dd>{{ cart.total() | currency }}</dd>
+          </div>
+        </dl>
+        <p class="secure-note">🔒 Encrypted and secure — your details are never shared.</p>
+      </aside>
+    </div>
+  }
+</div>
+
+

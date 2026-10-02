@@ -1,0 +1,95 @@
+<div class="page container">
+  <header class="page-head">
+    <p class="eyebrow">Catalogue</p>
+    <h1>All products</h1>
+    <p class="page-sub">
+      Browsing {{ products().length }} of {{ categories().length }} categories — free shipping over
+      {{ freeShippingThreshold | currency }}.
+    </p>
+  </header>
+
+  <div class="catalogue">
+    <aside class="filters" aria-labelledby="filters-title">
+      <h2 id="filters-title" class="filters-title">
+        Filter by category
+      </h2>
+      <div class="filter-list">
+        <button
+          type="button"
+          class="filter-chip"
+          [class.active]="activeCategory() === 'all'"
+          [attr.aria-pressed]="activeCategory() === 'all'"
+          (click)="selectCategory('all')"
+        >
+          All
+        </button>
+        @for (category of categories(); track category.id) {
+          <button
+            type="button"
+            class="filter-chip"
+            [class.active]="activeCategory() === category.id"
+            [attr.aria-pressed]="activeCategory() === category.id"
+            (click)="selectCategory(category.id)"
+          >
+            {{ category.name }}
+          </button>
+        }
+      </div>
+    </aside>
+
+    <section class="results" aria-labelledby="results-title">
+      <h2 id="results-title" class="visually-hidden">Product results</h2>
+
+      @if (status() === 'loading') {
+        <div class="state-block" role="status">
+          <span class="state-spinner" aria-hidden="true"></span>
+          <p class="state-text">Loading products…</p>
+        </div>
+      } @else if (status() === 'error') {
+        <div class="state-block" role="alert">
+          <p class="state-title">We could not load products</p>
+          <p class="state-text">{{ errorMessage() }}</p>
+          <div class="state-actions">
+            <button type="button" class="btn btn-primary" (click)="retry()">Try again</button>
+          </div>
+        </div>
+      } @else {
+        @if (query() || activeCategory() !== 'all') {
+          <div class="filter-note" aria-live="polite">
+            <p>
+              Showing
+              <strong>{{ products().length }}</strong>
+              products
+              @if (query()) {
+                for “{{ query() }}”
+              }
+              @if (activeCategoryName()) {
+                in <strong>{{ activeCategoryName() }}</strong>
+              }.
+            </p>
+            <button type="button" class="link-btn" (click)="resetFilters()">
+              Clear all filters
+            </button>
+          </div>
+        }
+
+        @if (products().length === 0) {
+          <div class="empty-state">
+            <span class="empty-icon" aria-hidden="true">🔍</span>
+            <h3>No products found</h3>
+            <p>Try a different search term, or browse the full catalogue.</p>
+            <button type="button" class="btn btn-primary" (click)="resetFilters()">
+              Show all products
+            </button>
+          </div>
+        } @else {
+          <ul class="product-grid">
+            @for (product of products(); track product.id) {
+              <li><app-product-card [product]="product" /></li>
+            }
+          </ul>
+        }
+      }
+    </section>
+  </div>
+</div>

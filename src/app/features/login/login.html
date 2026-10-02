@@ -1,0 +1,58 @@
+<div class="page container">
+  <section class="login-card" aria-labelledby="login-title">
+    <span class="login-mark" aria-hidden="true">e6</span>
+
+    @if (auth.isSignedIn()) {
+      <p class="eyebrow">Account</p>
+      <h1 id="login-title">You are signed in</h1>
+
+      <div class="login-identity">
+        <app-user-avatar size="lg" [src]="auth.avatarUrl()" [name]="auth.displayName()" />
+        <p class="login-text">
+          Signed in as <strong>{{ auth.displayName() }}</strong>
+          @if (auth.email()) {
+            <span class="login-email">{{ auth.email() }}</span>
+          }
+        </p>
+      </div>
+
+      <div class="login-actions">
+        <a routerLink="/products" class="btn btn-primary btn-lg btn-block">Continue shopping</a>
+        <button
+          type="button"
+          class="btn btn-outline btn-block"
+          (click)="signOut()"
+          [disabled]="auth.loading()"
+        >
+          {{ auth.loading() ? 'Signing out…' : 'Sign out' }}
+        </button>
+      </div>
+    } @else {
+      <p class="eyebrow">Account</p>
+      <h1 id="login-title">Sign in to e600Shop</h1>
+      <p class="login-text">
+        Continue with your Google account — there is no password to remember. We only use your
+        name and email address.
+      </p>
+
+      <button
+        type="button"
+        class="btn btn-primary btn-lg btn-block login-google-btn"
+        (click)="signInWithGoogle()"
+        [disabled]="auth.loading() || !auth.ready()"
+      >
+        @if (auth.loading()) {
+          Signing in…
+        } @else {
+          Continue with Google
+        }
+      </button>
+
+      <p class="login-note">You will be redirected to Google and then back to this page.</p>
+    }
+
+    @if (auth.errorMessage(); as message) {
+      <p class="login-error" role="alert">{{ message }}</p>
+    }
+  </section>
+</div>

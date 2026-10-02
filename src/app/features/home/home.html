@@ -1,0 +1,122 @@
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">New season, new deals</p>
+      <h1>Everything you love, delivered to your door.</h1>
+      <p class="hero-text">
+        Shop electronics, fashion, home essentials and more — quality products at prices that make
+        sense, with free shipping on orders over {{ freeShippingThreshold | currency }}.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/products" class="btn btn-primary btn-lg">Shop now</a>
+        <a href="#categories" class="btn btn-outline btn-lg">Browse categories</a>
+      </div>
+      <ul class="hero-points">
+        <li>Free shipping over {{ freeShippingThreshold | currency }}</li>
+        <li>30-day returns</li>
+        <li>Secure checkout</li>
+      </ul>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <span class="hero-emoji hero-emoji-1">🎧</span>
+      <span class="hero-emoji hero-emoji-2">👟</span>
+      <span class="hero-emoji hero-emoji-3">⌚</span>
+      <span class="hero-emoji hero-emoji-4">🛋️</span>
+      <span class="hero-chip hero-chip-1"
+        >Free shipping over {{ freeShippingThreshold | currency }}</span
+      >
+      <span class="hero-chip hero-chip-2">★ 4.8 average rating</span>
+    </div>
+  </div>
+</section>
+
+<section class="section categories" id="categories" aria-labelledby="categories-title">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Browse</p>
+        <h2 id="categories-title">Shop by category</h2>
+        <p>Find exactly what you need, organised for quick browsing.</p>
+      </div>
+    </div>
+    <ul class="category-grid">
+      @for (category of categories(); track category.id) {
+        <li>
+          <a class="category-card" routerLink="/products" [queryParams]="{ category: category.id }">
+            <span class="category-emoji" aria-hidden="true">{{ category.emoji }}</span>
+            <span class="category-name">{{ category.name }}</span>
+            <span class="category-desc">{{ category.description }}</span>
+            <span class="category-cta" aria-hidden="true">Explore →</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="section featured" aria-labelledby="featured-title">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Handpicked</p>
+        <h2 id="featured-title">Featured products</h2>
+        <p>Customer favourites, restocked and ready to ship.</p>
+      </div>
+      <a routerLink="/products" class="link-more">View all products →</a>
+    </div>
+    @if (status() === 'loading') {
+      <div class="state-block" role="status">
+        <span class="state-spinner" aria-hidden="true"></span>
+        <p class="state-text">Loading products…</p>
+      </div>
+    } @else if (status() === 'error') {
+      <div class="state-block" role="alert">
+        <p class="state-title">We could not load products</p>
+        <p class="state-text">{{ errorMessage() }}</p>
+        <div class="state-actions">
+          <button type="button" class="btn btn-primary" (click)="retry()">Try again</button>
+        </div>
+      </div>
+    } @else if (featured().length === 0) {
+      <p class="state-text">No products available yet.</p>
+    } @else {
+      <ul class="product-grid">
+        @for (product of featured(); track product.id) {
+          <li><app-product-card [product]="product" /></li>
+        }
+      </ul>
+    }
+  </div>
+</section>
+
+<section class="section promo-wrap" aria-labelledby="promo-title">
+  <div class="container">
+    <div class="promo">
+      <div class="promo-copy">
+        <p class="promo-eyebrow">Limited time</p>
+        <h2 id="promo-title">Save up to 30% across the store</h2>
+        <p>
+          Grab trending picks before they are gone. Discounts are applied automatically — no codes
+          needed.
+        </p>
+        <a routerLink="/products" class="btn btn-light btn-lg">Shop the deals</a>
+      </div>
+      <div class="promo-art" aria-hidden="true">
+        <span>🏷️</span>
+        <span>🎉</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta" aria-labelledby="cta-title">
+  <div class="container cta-inner">
+    <h2 id="cta-title">Ready to fill your cart?</h2>
+    <p>Check out in minutes — no account required, and your order ships within 24 hours.</p>
+    <div class="cta-actions">
+      <a routerLink="/products" class="btn btn-primary btn-lg">Start shopping</a>
+      <a routerLink="/cart" class="btn btn-outline btn-lg">View cart</a>
+    </div>
+  </div>
+</section>
