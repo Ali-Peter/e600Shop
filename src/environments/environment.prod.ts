@@ -13,5 +13,5 @@
  */
 export const environment = {
   production: true,
-  apiBaseUrl: '',
+  apiBaseUrl: 'https://e600shopapi.onrender.com',
 };
